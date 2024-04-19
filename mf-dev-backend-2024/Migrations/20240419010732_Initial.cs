@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace mf_dev_backend_2024.Migrations
 {
-    public partial class m01adicionartabelaveiculo : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,12 +13,12 @@ namespace mf_dev_backend_2024.Migrations
                 name: "Veiculos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Placa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnoFabricacao = table.Column<int>(type: "int", nullable: false),
-                    AnoModelo = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: false),
+                    Placa = table.Column<string>(type: "text", nullable: false),
+                    AnoFabricacao = table.Column<int>(type: "integer", nullable: false),
+                    AnoModelo = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
