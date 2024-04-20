@@ -96,4 +96,24 @@ public class VeiculosController : Controller
 
         return RedirectToAction("Index");
     }
+
+    public async Task<IActionResult> Relatorio(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var veiculo = await _context.Veiculos.FindAsync(id);
+        if (veiculo == null) return NotFound();
+
+        var consumos = await _context.Consumos
+            .Where((c) => c.VeiculoId == veiculo.Id)
+            .OrderByDescending(c => c.Data)
+            .ToListAsync();
+
+        var total = consumos.Sum(c => c.Valor);
+
+        ViewBag.Veiculo = veiculo;
+        ViewBag.Total = total;
+        
+        return View(consumos);
+    }
 }
